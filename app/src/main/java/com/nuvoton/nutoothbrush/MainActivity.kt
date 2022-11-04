@@ -28,6 +28,9 @@ import kotlin.concurrent.thread
 import android.animation.ValueAnimator
 
 import android.animation.ValueAnimator.AnimatorUpdateListener
+import android.content.ClipData
+import android.view.Menu
+import android.view.MenuItem
 import com.nuvoton.nutoothbrush.CMDManager.bwc
 import java.util.concurrent.TimeUnit
 
@@ -66,7 +69,22 @@ class MainActivity : AppCompatActivity() {
     private lateinit var _textView_device_name :TextView
     private lateinit var _textView_history :TextView
     private lateinit var _textView_diffDays :TextView
+    private var _item_ble :MenuItem? = null
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.option_menu, menu)
+        _item_ble = menu!!.findItem(R.id.mybutton)
+        this.setUI(BluetoothProfile.STATE_DISCONNECTED)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id: Int = item.getItemId()
+        if (id == R.id.mybutton) {
+            _connectDeviceButton.callOnClick()
+        }
+        return super.onOptionsItemSelected(item)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -114,18 +132,28 @@ class MainActivity : AppCompatActivity() {
             )
         }else{
             runOnUiThread {
-                val pm = PermissionManager(this)
-                val permissionArray = ArrayList<PermissionManager.PermissionType>()
-                permissionArray.add(PermissionManager.PermissionType.GPS)
-                permissionArray.add(PermissionManager.PermissionType.BLUETOOTH)
-                permissionArray.add(PermissionManager.PermissionType.BLUETOOTH_SCAN)
-                permissionArray.add(PermissionManager.PermissionType.BLUETOOTH_CONNECT)
+                DialogTool.showAlertDialog(this,
+                    "Prominent disclosure",
+                    "If user wants to use BLE function in this app, user needs to open GPS, for search BLE device.\n" +
+                            "NuBLE collects location data to enable GPS searching BLE device, only when the app is opened.",
+                    true,
+                    false,
+                    callback = { isok, isCancel ->
+                        runOnUiThread {
+                            val pm = PermissionManager(this)
+                            val permissionArray = ArrayList<PermissionManager.PermissionType>()
+                            permissionArray.add(PermissionManager.PermissionType.GPS)
+                            permissionArray.add(PermissionManager.PermissionType.BLUETOOTH)
+                            permissionArray.add(PermissionManager.PermissionType.BLUETOOTH_SCAN)
+                            permissionArray.add(PermissionManager.PermissionType.BLUETOOTH_CONNECT)
 
-                pm.selfPermission("權限", permissionArray)
+                            pm.selfPermission("權限", permissionArray)
+                        }
+                    })
+
             }
         }
 
-        this.setUI(BluetoothProfile.STATE_DISCONNECTED)
     }
 
     private fun setUI(bleState:Int){
@@ -148,33 +176,43 @@ class MainActivity : AppCompatActivity() {
                 BluetoothProfile.STATE_CONNECTING -> {
                     _timeSeekBar.isEnabled = false
                     _powerSeekBar.isEnabled = false
-                    _connectDeviceButton.setText("取消")
-                    _textView_bleStuts.setText("連線狀態：連線中")
+                    _connectDeviceButton.setText(getString(R.string.Cancel_Text))
+                    _textView_bleStuts.setText(getString(R.string.Status_Connecting))
+                    if(_item_ble != null){
+                        _item_ble!!.title = getString(R.string.Cancel_Text)
+                    }
                     _textView_bleStuts.setTextColor(this.getColor(R.color.nuTextOrange))
                 }
                 BluetoothProfile.STATE_CONNECTED -> {
                     _timeSeekBar.isEnabled = true
                     _powerSeekBar.isEnabled = true
-                    _connectDeviceButton.setText("中斷連線")
-                    _textView_bleStuts.setText("連線狀態：已連線")
+                    _connectDeviceButton.setText(getString(R.string.Disconnect_Text))
+                    if(_item_ble != null){
+                        _item_ble!!.title = getString(R.string.Disconnect_Text)
+                    }
+                    _textView_bleStuts.setText(getString(R.string.Status_Connected))
                     _textView_bleStuts.setTextColor(this.getColor(R.color.nuTextBlue))
                 }
                 BluetoothProfile.STATE_DISCONNECTED -> {
                     _timeSeekBar.isEnabled = false
                     _powerSeekBar.isEnabled = false
                     _textView_Battery.setText("？")
-                    _connectDeviceButton.setText("藍芽連線")
-                    _textView_bleStuts.setText("連線狀態：未連線")
+                    _connectDeviceButton.setText(getString(R.string.Connect_Text))
+                    if(_item_ble != null){
+                        _item_ble!!.title = getString(R.string.Connect_Text)
+                    }
+                    _textView_bleStuts.setText(getString(R.string.Status_DisConnected))
                     _textView_bleStuts.setTextColor(this.getColor(R.color.nuTextRed))
 
 
 
-                    if (CMDManager.setAutoReConnect == true) {
+                    if (CMDManager.setAutoReConnect == true && CMDManager.isConnecting == false) {
                         runOnUiThread {
                             doReConnect()
                         }
+                    }else{
+                        CMDManager.isConnecting = false
                     }
-
                 }
             }
         }
@@ -194,7 +232,7 @@ class MainActivity : AppCompatActivity() {
         Log.i(TAG, "onHistoryClickButton:"+BLE_DATA?.isConnect  +" _deviceID:" +_deviceID)
 
         if(BLE_DATA?.isConnect != true || _deviceID ==""){
-            DialogTool.showAlertDialog(this,"未連接","查看使用紀錄前,請先連線.",true,false,null)
+            DialogTool.showAlertDialog(this,getString(R.string.fail),getString(R.string.viewing_history),true,false,null)
             return@OnClickListener
         }
 
@@ -210,7 +248,7 @@ class MainActivity : AppCompatActivity() {
                 _displayPower.setText(""+progress+" ％")
             }
             if(seek == _timeSeekBar){
-                _displayTime.setText(""+progress+" 秒")
+                _displayTime.setText(""+progress+" "+getString(R.string.Sec_Text))
             }
         }
 
@@ -222,10 +260,10 @@ class MainActivity : AppCompatActivity() {
             //停止拖曳時觸發事件
 
             if(seek == _powerSeekBar){
-                Toast.makeText(this@MainActivity,"設定強度：" + seek.progress + " %",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@MainActivity,"set power：" + seek.progress + " %",Toast.LENGTH_SHORT).show()
             }
             if(seek == _timeSeekBar){
-                Toast.makeText(this@MainActivity,"設定時間：" + seek.progress + " 秒",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@MainActivity,"set time：" + seek.progress + " "+getString(R.string.Sec_Text),Toast.LENGTH_SHORT).show()
             }
 
             if(WRITE_BC != null){
@@ -408,11 +446,12 @@ class MainActivity : AppCompatActivity() {
         }
 
         bleData.setOnStateChangeListener(onStateChangeListener)
+        CMDManager.isConnecting = true
 
         bleData.connectLeDevice {
             Log.i("MainActivity", "connectLeDevice:" + it)
             if (it != true) {
-                onStateChangeListener.onStateChange(bleData.getbleMacAddress(), 0, 0)
+//                onStateChangeListener.onStateChange(bleData.getbleMacAddress(), 0, 0)
                 return@connectLeDevice
             }
             for (bs in bleData.servicesDataArray) {
@@ -459,7 +498,7 @@ class MainActivity : AppCompatActivity() {
                 _deviceID = disPlayValue
                 CMDManager.DeviceID = disPlayValue
                 runOnUiThread {
-                    _textView_device_name.setText("裝置名稱："+_deviceID)
+                    _textView_device_name.setText(getString(R.string.DeviceID)+_deviceID)
                 }
 
                 //TODO 讀取使用註冊日期
@@ -514,7 +553,7 @@ class MainActivity : AppCompatActivity() {
 
                 val t : ByteArray = byteArrayOf(Value[1],Value[2],Value[3])
                 CMDManager.addHistoryData(_deviceID,String(t, StandardCharsets.UTF_8))
-                CMDManager.notifyDataSetChangedDisplaylist()
+                CMDManager.notifyDataSetChangedDisplaylist(this)
                 CMDManager.getlastHistory { date, sec, displayText ->
                     _textView_history.setText(displayText)
                 }
@@ -549,6 +588,7 @@ class MainActivity : AppCompatActivity() {
 
             CMDManager.saveBleMAC(BLE_DATA!!)
             CMDManager.setAutoReConnect = true
+            CMDManager.isConnecting = false
 
             thread {
                 while (WRITE_BC == null){

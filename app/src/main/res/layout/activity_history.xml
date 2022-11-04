@@ -47,7 +47,7 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="20dp"
                     android:gravity="center"
-                    android:text="最近使用紀錄"
+                    android:text="@string/Last_History_Text"
                     android:textSize="31sp" />
 
                 <TextView
@@ -75,12 +75,12 @@
                     android:layout_alignStart="@+id/imageView8"
                     android:layout_alignEnd="@+id/imageView8"
                     android:layout_alignBottom="@+id/imageView8"
-                    android:layout_marginStart="160dp"
+                    android:layout_marginStart="170dp"
                     android:layout_marginTop="30dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="20dp"
                     android:gravity="center"
-                    android:text="秒"
+                    android:text="@string/Sec_Text"
                     android:textSize="24sp" />
 
             </RelativeLayout>
@@ -106,7 +106,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:text="歷史紀錄"
+                android:text="@string/History_Text"
                 android:textSize="24sp" />
 
             <ListView
@@ -132,7 +132,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="0dp"
-                android:text="ver 1.0.5"
+                android:text="ver 1.0.6"
                 android:textColor="@color/nuTextRed" />
         </RelativeLayout>
     </LinearLayout>

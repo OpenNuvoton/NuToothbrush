@@ -29,15 +29,16 @@ object CMDManager {
     private var TAG = "CMDManager"
 
     public var setAutoReConnect = true
+    public var isConnecting = false
     public var DeviceID = "WP Test"
     public var Array_Adapter: ArrayAdapter<*>? = null
     public val Displaylist : ArrayList<String> = ArrayList()
 
-    public fun notifyDataSetChangedDisplaylist(){
+    public fun notifyDataSetChangedDisplaylist(context: Context){
         val l = CMDManager.getHistoryData(CMDManager.DeviceID)
         Displaylist.clear()
         if(l.size == 0){
-            Displaylist.add(0,"還未開始使用APP記錄刷牙唷！")
+            Displaylist.add(0,context.getString(R.string.Unkown_History_Text))
 
         }else{
             for(i in l.size-1 downTo 0){
@@ -86,9 +87,9 @@ object CMDManager {
             seconds -= minutes * 60
         }
        if(minutes > 0){
-           return "" + minutes + " 分 " + seconds +" 秒"
+           return "" + minutes +" "+context.getString(R.string.minute)+" "+ + seconds +" "+context.getString(R.string.Sec_Text)
        }else{
-           return "" + seconds +" 秒"
+           return "" + seconds +" "+context.getString(R.string.Sec_Text)
        }
 //        return Formatter().format("%1\$02d 分 %2\$02d 秒", minutes, seconds).toString()
     }

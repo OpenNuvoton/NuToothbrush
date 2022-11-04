@@ -34,7 +34,7 @@ class HistoryActivity : AppCompatActivity() {
         Array_Adapter = ArrayAdapter(this,R.layout.list_item, CMDManager.Displaylist)
         mListView.adapter = Array_Adapter
 
-        CMDManager.notifyDataSetChangedDisplaylist()
+        CMDManager.notifyDataSetChangedDisplaylist(this)
 
         Array_Adapter!!.notifyDataSetChanged()
     }

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Nuvoton 電動牙刷</string>
+    <string name="Ble_Connect_Text">藍芽連線</string>
+    <string name="DeviceID">裝置名稱：</string>
+    <string name="Ble_Stuts_Text">連線狀態：未連線</string>
+    <string name="Toothbrush_Days_Text">刷頭剩餘時間：</string>
+    <string name="Toothbrush_Battery_Text">目前剩餘電量：</string>
+    <string name="Day_Text">天</string>
+    <string name="Last_History_Text">近期使用紀錄</string>
+    <string name="History_Text">歷史紀錄</string>
+    <string name="More_Text">更多</string>
+    <string name="Title_History_Text">牙刷使用紀錄</string>
+    <string name="Title_Mode_Text">刷牙模式</string>
+    <string name="Mode1_Text">模式 1</string>
+    <string name="Mode2_Text">模式 2</string>
+    <string name="Mode3_Text">模式 3</string>
+    <string name="Mode4_Text">模式 4</string>
+    <string name="Title_Power_Text">自定義力道</string>
+    <string name="Title_SetTime_Text">自定義時間</string>
+    <string name="Sec_Text">秒</string>
+    <string name="Cancel_Text">取消</string>
+    <string name="Disconnect_Text">斷線</string>
+    <string name="Connect_Text">連線</string>
+    <string name="Status_Connecting">連線狀態：連線中</string>
+    <string name="Status_Connected">連線狀態：已連線</string>
+    <string name="Status_DisConnected">連線狀態：斷線</string>
+    <string name="fail">未連線</string>
+    <string name="viewing_history">請先連線,然後再查看使用歷史記錄.</string>
+    <string name="Unkown_History_Text">還未開始使用APP記錄刷牙唷！</string>
+    <string name="minute">分</string>
+</resources>

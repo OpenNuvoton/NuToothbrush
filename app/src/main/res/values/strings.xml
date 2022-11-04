@@ -1,3 +1,32 @@
+
 <resources>
-    <string name="app_name">Nuvoton 電動牙刷</string>
+    <string name="app_name">Nuvoton Toothbrush</string>
+    <string name="Ble_Connect_Text">Connect</string>
+    <string name="DeviceID">Device ID：</string>
+    <string name="Ble_Stuts_Text">Connection Status：DisConnect</string>
+    <string name="Toothbrush_Days_Text">Brush Head：</string>
+    <string name="Toothbrush_Battery_Text">Battery Time：</string>
+    <string name="Day_Text">Day</string>
+    <string name="Last_History_Text">Recent History</string>
+    <string name="History_Text">History List</string>
+    <string name="More_Text">More</string>
+    <string name="Title_History_Text">Dental Care Journey</string>
+    <string name="Title_Mode_Text">Brushing Mode Setting</string>
+    <string name="Mode1_Text">Mode 1</string>
+    <string name="Mode2_Text">Mode 2</string>
+    <string name="Mode3_Text">Mode 3</string>
+    <string name="Mode4_Text">Mode 4</string>
+    <string name="Title_Power_Text">Power</string>
+    <string name="Title_SetTime_Text">Time</string>
+    <string name="Sec_Text">sec</string>
+    <string name="Cancel_Text">Cancel</string>
+    <string name="Disconnect_Text">Disconnect</string>
+    <string name="Connect_Text">Connect</string>
+    <string name="Status_Connecting">Status：Connecting</string>
+    <string name="Status_Connected">Status：Connected</string>
+    <string name="Status_DisConnected">Status：DisConnected</string>
+    <string name="fail">Fail</string>
+    <string name="viewing_history">Please connect first before viewing usage history.</string>
+    <string name="Unkown_History_Text">Unkown History！</string>
+    <string name="minute">minute</string>
 </resources>

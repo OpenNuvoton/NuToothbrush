@@ -29,7 +29,8 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="5dp"
                 android:background="@drawable/button_shape"
-                android:text="藍芽連線"
+                android:text="@string/Ble_Connect_Text"
+                android:visibility="gone"
                 android:textSize="10sp" />
 
             <ImageView
@@ -75,7 +76,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="0dp"
                 android:layout_toEndOf="@+id/imageView_toothbrush"
-                android:text="裝置名稱：M031BT1"
+                android:text="@string/DeviceID"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
 
@@ -89,7 +90,7 @@
                 android:layout_marginTop="0dp"
                 android:layout_marginBottom="0dp"
                 android:layout_toEndOf="@+id/imageView_toothbrush"
-                android:text="連線狀態：未連線"
+                android:text="@string/Ble_Stuts_Text"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
 
@@ -159,7 +160,7 @@
                         android:layout_marginTop="0dp"
                         android:layout_marginBottom="0dp"
                         android:gravity="bottom"
-                        android:text="刷頭剩餘時間："
+                        android:text="@string/Toothbrush_Days_Text"
                         android:textColor="@color/black"
                         android:textSize="20sp" />
 
@@ -191,7 +192,7 @@
                         android:layout_marginBottom="0dp"
                         android:layout_toEndOf="@+id/textView_diffDays"
                         android:gravity="bottom"
-                        android:text="天"
+                        android:text="@string/Day_Text"
                         android:textColor="@color/black"
                         android:textSize="20sp" />
                 </RelativeLayout>
@@ -212,7 +213,7 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="0dp"
                         android:layout_weight="1"
-                        android:text="目前剩餘電量："
+                        android:text="@string/Toothbrush_Battery_Text"
                         android:textColor="@color/black"
                         android:textSize="20sp" />
 
@@ -267,7 +268,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="0dp"
-                android:text="牙刷使用紀錄"
+                android:text="@string/Title_History_Text"
                 android:textColor="@color/nuTextRed"
                 android:textSize="18sp" />
 
@@ -305,7 +306,7 @@
                 android:layout_marginEnd="5dp"
                 android:layout_marginBottom="10dp"
                 android:layout_toStartOf="@+id/image_more"
-                android:text="更多"
+                android:text="@string/More_Text"
                 android:textColor="@color/nuTextRed"
                 android:textSize="17sp" />
 
@@ -341,7 +342,7 @@
                     android:layout_marginBottom="2dp"
                     android:layout_weight="1"
                     android:gravity="bottom"
-                    android:text="近期使用紀錄"
+                    android:text="@string/Last_History_Text"
                     android:textColor="@color/black"
                     android:textSize="20sp"
 
@@ -388,7 +389,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="0dp"
-                android:text="刷牙模式"
+                android:text="@string/Title_Mode_Text"
                 android:textColor="@color/nuTextRed"
                 android:textSize="18sp" />
 
@@ -463,7 +464,7 @@
                                 android:layout_marginStart="20dp"
                                 android:layout_weight="1"
                                 android:buttonTint="@color/nuTextRed"
-                                android:text="模式 1"
+                                android:text="@string/Mode1_Text"
 
                                 />
 
@@ -474,7 +475,7 @@
                                 android:layout_marginStart="20dp"
                                 android:layout_weight="1"
                                 android:buttonTint="@color/nuTextRed"
-                                android:text="模式 2" />
+                                android:text="@string/Mode2_Text" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -490,7 +491,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:buttonTint="@color/nuTextRed"
-                                android:text="模式 3" />
+                                android:text="@string/Mode3_Text" />
 
                             <RadioButton
                                 android:id="@+id/radioButton_Mode4"
@@ -498,7 +499,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:buttonTint="@color/nuTextRed"
-                                android:text="模式 4" />
+                                android:text="@string/Mode4_Text" />
                         </LinearLayout>
                     </LinearLayout>
                 </RelativeLayout>
@@ -516,7 +517,7 @@
                         android:layout_alignParentTop="true"
                         android:layout_marginStart="30dp"
                         android:layout_marginTop="10dp"
-                        android:text="自定義力道"
+                        android:text="@string/Title_Power_Text"
                         android:textColor="@color/nuTextRed"
                         android:textSize="18sp" />
 
@@ -564,7 +565,7 @@
                         android:layout_marginStart="30dp"
 
                         android:layout_marginBottom="10dp"
-                        android:text="自定義時間"
+                        android:text="@string/Title_SetTime_Text"
                         android:textColor="@color/nuTextRed"
                         android:textSize="18sp" />
 
@@ -577,7 +578,7 @@
                         android:layout_marginTop="0dp"
                         android:layout_marginEnd="30dp"
                         android:gravity="right"
-                        android:text="秒"
+                        android:text="@string/Sec_Text"
                         android:textColor="@color/nuTextRed"
                         android:textSize="18sp" />
 
